@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.: Generador de presupuestos :.</title>
+</head>
+<body class="bg-slate-400">
+    <!-- Layout principal -->
+    <div class="flex flex-col h-screen">
+        <header class="flex justify-between items-center bg-blue-600 text-white p-2 shrink-0">
+            <h1 class="text-2xl">Generador de presupuestos</h1>
+            <!-- Abrir dialog modal -->
+            <div class="flex items-center justify-end px-5 py-2">
+                <button id="openModal" class="bg-gray-600 rounded-lg px-3 py-1 option-3 text-neutral-100 hover:bg-gray-500">
+                    Configurar empresa
+                </button>
+            </div>
+        </header>
+
+        <main class="bg-gray-300 flex-1 overflow-y-auto p-4">
+            <div class="min-h-[200vh] bg-white p-8 rounded-2xl shadow-2xl shadow-gray-800">
+              <div class="transition-all duration-300 w-full" >
+                  <section class="py-6 px-4">
+                      <div class="max-w-6xl mx-auto">
+                          <div class="max-w-2xl mx-auto">
+                              <div class="p-8 bg-gray-300 rounded-2xl shadow-lg">
+                                  <form id="form-presupuesto" class="space-y-4">
+
+                                      <div class="relative">
+                                          <input type="text" id="fecha" name="fecha" placeholder=" " inputmode="numeric" maxlength="10" autocomplete="off" required class="date peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                          <label for="fecha" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Fecha del presupuesto (dd/mm/aaaa)
+                                          </label>
+                                          <span id="fecha-error" class="date-error text-red-500 text-sm mt-1 hidden"></span>
+                                      </div>                                    
+
+                                      <div class="relative">
+                                          <input type="text" id="nombre-empresa" name="empresa" placeholder=" " class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                          <label for="nombre-empresa" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Nombre de la empresa
+                                          </label>
+                                      </div>
+
+                                      <div class="relative">
+                                          <input type="text" id="nombre-cliente" name="cliente" placeholder=" " class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                          <label for="nombre-cliente" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Nombre del cliente
+                                          </label>
+                                      </div>
+
+                                      <div class="relative">
+                                          <select id="planes-select" name="plan" required class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors appearance-none">
+                                              <option value="" class="bg-gray-300" disabled hidden selected></option>
+                                              <option value="opcion1" class="bg-gray-300 text-gray-500">Opción 1</option>
+                                              <option value="opcion2" class="bg-gray-300 text-gray-500">Opción 2</option>
+                                              <option value="opcion3" class="bg-gray-300 text-gray-500">Opción 3</option>                                
+                                          </select>
+                                          <label for="planes-select" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Seleccionar planes
+                                          </label>
+
+                                          <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                              </svg>
+                                          </div>
+                                      </div>
+
+                                      <div class="relative">
+                                          <input type="text" id="limite" name="limite" placeholder=" " inputmode="numeric" maxlength="10" autocomplete="off" required class="date peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                          <label for="limite" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Fecha de caducidad (dd/mm/aaaa)
+                                          </label>
+                                          <span id="limite-error" class="date-error text-red-500 text-sm mt-1 hidden"></span>
+                                      </div>
+
+                                      <button type="submit" class="w-full bg-blue-500 text-white p-4 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-lg">
+                                          Generar presupuesto PDF
+                                      </button>
+                                  </form>
+                              </div>
+                          </div>                
+                      </div>
+                  </section>
+              </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white p-2 shrink-0 flex justify-between items-center">
+            <h3>Pie de página</h3>
+        </footer>
+    </div>
+
+    <!-- Dialog Modal -->
+    <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-100 p-4">
+        <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl">
+            <!-- Header del modal -->
+            <header class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+                <h2 class="text-lg font-semibold text-gray-800">Datos de la empresa</h2>
+                <button id="closeModal" class="rounded-lg px-3 py-1 text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+                    ✕
+                </button>
+            </header>
+            <!-- Cuerpo del modal -->
+            <div class="px-5 py-4 text-gray-600">
+              <div class="transition-all duration-300 w-full" >
+                  <section class="py-2 px-2">
+                      <div class="max-w-6xl mx-auto">
+                          <div class="max-w-2xl mx-auto">
+                              <div class="p-2 bg-gray-300 rounded-2xl shadow-lg">
+                                  <form id="form-empresa" class="space-y-4">
+                                      <div class="relative">
+                                          <input type="text" id="empresa" name="empresa" placeholder=" " class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                          <label for="empresa" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                              Nombre de la empresa
+                                            </label>
+                                        </div>
+
+                                        <div class="relative">
+                                            <input type="text" id="web" name="web" placeholder=" " class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                            <label for="web" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                                Pagina web de la empresa
+                                            </label>
+                                        </div>
+
+                                        <div class="relative">
+                                            <input type="email" id="email" name="email" placeholder=" " class="peer w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                            <label for="email" class="absolute left-4 top-4 text-gray-500 pointer-events-none transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-not-placeholder-shown:top-1 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-primary-600">
+                                                Correo electrónico de la empresa
+                                            </label>
+                                        </div>
+                                     
+                                        <button id="guardar-datos" type="submit" class="w-full bg-blue-500 text-white p-4 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-lg">
+                                            Guardar datos
+                                        </button>
+                                  </form>
+                              </div>
+                          </div>                
+                      </div>
+                  </section>
+              </div>
+            </div>
+            <!-- Footer del modal -->
+            <footer class="flex items-center justify-end border-t border-gray-200 px-5 py-4">
+                <button id="closeModalBtn" class="bg-slate-600 rounded-lg px-3 py-1 text-neutral-100 hover:bg-slate-500">
+                    Cerrar
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module" src="src/renderer.js"></script>
+</body>
+</html>
